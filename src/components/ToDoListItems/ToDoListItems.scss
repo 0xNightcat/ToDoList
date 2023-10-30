@@ -1,0 +1,29 @@
+.list-items {
+   ul {
+      .list-item {
+         .list-item-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 20px 40px;
+            align-items: center;
+         }
+         .list-item-features {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .list-itm {
+               margin-left: 15px;
+               font-size: 20px;
+            }
+            .form-check-input {
+               border-color: #919191 !important;
+               &:focus {
+                  box-shadow: none;
+               }
+            }
+         }
+      }
+   }
+}
