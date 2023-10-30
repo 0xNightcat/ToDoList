@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 
+// App component
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      <Container className='text-center'>
+        <h1 className=''>ToDoList</h1>
+
+        <div className='input-area'>
+          <Form>
+            <Form.Group>
+              <Form.Control type='text' placeholder='New Todo' />           
+            </Form.Group>
+          </Form>
+        </div>
+      </Container>
     </div>
-  );
+  )
 }
 
 export default App;
