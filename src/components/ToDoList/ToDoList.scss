@@ -1,5 +1,13 @@
 .list {
    margin-top: 3rem;
+   .delete-tasks {
+      justify-content: space-between;
+      margin-top: 1.8rem;
+      button {
+         width: 44%;
+         padding: 8px 0;
+      }
+   }
    .row {
       button {
          background: #fff;

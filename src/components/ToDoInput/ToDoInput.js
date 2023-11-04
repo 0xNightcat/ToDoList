@@ -3,11 +3,13 @@ import { Card, Button, Form } from 'react-bootstrap';
 import { setInputValue } from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
+// to do input component
 function ToDoInput() {
    const dispatch = useDispatch();
    const toDoInputReducer = useSelector((state) => state.toDoInput);
    const { inputTask } = toDoInputReducer;
 
+   // input value handler
    const inputValueHandler = (event) => {
       const inputValue = event.target.value;
       
