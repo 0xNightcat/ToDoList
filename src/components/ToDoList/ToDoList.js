@@ -9,7 +9,7 @@ function ToDoList() {
 
       <Row className='justify-content-center mt-5'>
          <Col md={3}>
-            <Button className='btn-show-all w-100'>All</Button>
+            <Button className='btn-show-all w-100 active'>All</Button>
          </Col>
          <Col md={3}>
             <Button className='btn-show-done w-100'>Done</Button>
