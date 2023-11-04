@@ -1,13 +1,13 @@
 import './ToDoInput.scss';
 import { Card, Button, Form } from 'react-bootstrap';
-import { setInputValue } from './ToDoInputSlice';
+import { setInputValue, createTask, clearInput } from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 // to do input component
 function ToDoInput() {
    const dispatch = useDispatch();
    const toDoInputReducer = useSelector((state) => state.toDoInput);
-   const { inputTask } = toDoInputReducer;
+   const { inputTask, tasks } = toDoInputReducer;
 
    // input value handler
    const inputValueHandler = (event) => {
@@ -15,7 +15,18 @@ function ToDoInput() {
       
       dispatch(setInputValue(inputValue));
    }
-   console.log(inputTask);
+   
+   // add task handler
+   const addTaskHander = (event) => {
+      const id = Math.floor(Math.random() * 100);
+      
+      dispatch(createTask({ id: id, title: inputTask, state: 'Todo' }))
+
+      dispatch(clearInput()) ;
+   }
+   
+   console.log(tasks);
+   
 
   return (
     <div className='todo-top'>
@@ -24,11 +35,11 @@ function ToDoInput() {
       <Card className='input-area w-75 m-auto p-4'>
       <Form>
          <Form.Group>
-            <Form.Control type='text' onChange={inputValueHandler} placeholder='New Task' />           
+            <Form.Control type='text' value={inputTask} onChange={inputValueHandler} placeholder='New Task' />           
          </Form.Group>
       </Form>
       <div className='btns mt-3 d-flex'>
-         <Button className='btn-success btn-add w-25'>Add new task</Button>
+         <Button className='btn-success btn-add w-25' onClick={addTaskHander}>Add new task</Button>
          <Button className='btn-danger btn-update w-25'>Update task</Button>
       </div>
       </Card>

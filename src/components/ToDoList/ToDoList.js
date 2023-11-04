@@ -1,9 +1,14 @@
 import ToDoListItems from '../ToDoListItems/ToDoListItems';
 import './ToDoList.scss';
 import { Row, Col, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 // to do list component
 function ToDoList() {
+   const toDoInputReducer = useSelector((state) => state.toDoInput);
+   const { tasks } = toDoInputReducer;
+
+
   return (
     <div className='list w-75 m-auto mt-5 text-center'>
       <h2>ToDoList</h2>
@@ -20,7 +25,7 @@ function ToDoList() {
          </Col>
       </Row>
 
-      <ToDoListItems />
+      <ToDoListItems tasks={tasks} />
 
       <div className='delete-tasks d-flex'>
          <Button className='done-tasks btn-warning'>Delete done tasks</Button>
