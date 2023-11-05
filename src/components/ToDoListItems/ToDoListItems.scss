@@ -8,6 +8,12 @@
             padding: 20px 40px;
             align-items: center;
          }
+         .list-item-title {
+            &.done {
+               text-decoration-line: line-through;
+               text-decoration-color: red;
+            }
+         }
          .list-item-features {
             display: flex;
             flex-direction: row;

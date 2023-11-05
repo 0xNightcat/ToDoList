@@ -7,7 +7,7 @@ function ToDoListItems({ tasks }) {
       <ul className='p-0'>
          {
             tasks ? tasks.map(item => {
-               return <li key={item.id} className='list-item mt-3'>
+               return <li key={item.title} className='list-item mt-3'>
                   <Card className='list-item-content'>
                      <span className='list-item-title'>{item.title}</span>
                      <div className='list-item-features'>

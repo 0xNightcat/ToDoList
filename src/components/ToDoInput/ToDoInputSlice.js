@@ -26,7 +26,7 @@ export const ToDoInputSlice = createSlice({
       clearInput: (state) => {
          state.inputTask = '';
       }
-   }
+   },
 })
 
 export const { setInputValue, createTask, clearInput } = ToDoInputSlice.actions;
