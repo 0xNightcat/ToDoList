@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+// get process
+export const getTasks = createAsyncThunk('get/tasks', async () => {
+   const response = axios.get('http://localhost:8000/Tasks');
+   const data = response.then((response) => response.data);
+
+   return data;
+})
 
 // state
 const initialState = {
@@ -25,9 +34,14 @@ export const ToDoInputSlice = createSlice({
       },
       clearInput: (state) => {
          state.inputTask = '';
-      }
+      },
    },
+   extraReducers: {
+      [getTasks.fulfilled]: (state, action) => {         
+         state.tasks = state.tasks.concat(action.payload);
+      }
+   }
 })
 
-export const { setInputValue, createTask, clearInput } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateTasks } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;

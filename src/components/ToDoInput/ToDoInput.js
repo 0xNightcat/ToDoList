@@ -2,14 +2,13 @@ import './ToDoInput.scss';
 import { Card, Button, Form } from 'react-bootstrap';
 import { setInputValue, createTask, clearInput } from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { postTasks } from './PostSlice';
+import { postTasks } from '../Api/PostSlice';
 
 // to do input component
 function ToDoInput() {
    const dispatch = useDispatch();
    const toDoInputReducer = useSelector((state) => state.toDoInput);
-   const { inputTask, tasks } = toDoInputReducer;
+   const { inputTask } = toDoInputReducer;
 
    // input value handler
    const inputValueHandler = (event) => {
@@ -21,19 +20,15 @@ function ToDoInput() {
    // add task handler
    const addTaskHander = () => {
       const id = Date.now();
-      const data = { id: id, title: inputTask, state: 'Todo' };
+      const data = { id: id, title: inputTask, state: 'todo' };
 
       if(inputTask) {
          dispatch(createTask(data))
          dispatch(clearInput());
+         dispatch(postTasks(data));
       }
    }
-
-   // state update handling
-   useEffect(() => {
-      dispatch(postTasks(tasks));
-   }, [dispatch, tasks])
-      
+   
 
   return (
     <div className='todo-top'>

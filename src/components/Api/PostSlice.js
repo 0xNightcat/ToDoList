@@ -2,13 +2,26 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // post process
-export const postTasks = createAsyncThunk('post/tasks', async (tasks) => {
-   await axios.post(`http://localhost:8000/Tasks`, tasks)
+export const postTasks = createAsyncThunk('post/tasks', async (task) => {
+   await axios.get('http://localhost:8000/Tasks')
    .then((response) => {
-      console.log('task posted');
-   }).catch((error) => {
-      console.log(error);
+      response.data.length === 0 ? axios.post(`http://localhost:8000/Tasks`, task)
+      : 
+      response.data.forEach(item => {
+         if(item.title === task.title) {
+            axios.delete(`http://localhost:8000/Tasks/${item.id}`);
+         } else {            
+            axios.post(`http://localhost:8000/Tasks`, task)
+            .then((response) => {
+               console.log('task posted');
+            }).catch((error) => {
+               console.log(error);
+            })
+         }
+      })
    })
+   
+
 })
 
 // state
