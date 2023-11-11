@@ -3,8 +3,8 @@ import './ToDoList.scss';
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import ToDoListTabs from './ToDoListTabs/ToDoListTabs';
-import { updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
-import { updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
+import { removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
+import { removeTaskDB, updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
 
 // to do list component
 function ToDoList() {
@@ -24,13 +24,23 @@ function ToDoList() {
       }
    }
 
+   // delete task handler
+   const removeTaskHandler = (id) => {
+      dispatch(removeTask(id));
+      dispatch(removeTaskDB(id));
+   }
+
   return (
     <div className='list w-75 m-auto mt-5 text-center'>
       <h2>ToDoList</h2>
 
       <ToDoListTabs />
 
-      <ToDoListItems inputCheck={checkInputHandler} tasks={tasks} />
+      {
+         tasks.length > 0 ? <ToDoListItems inputCheck={checkInputHandler} removeTask={removeTaskHandler} tasks={tasks} />
+         :
+         <h4 className='mt-5'>Task List is Empty</h4>
+      }
 
       <div className='delete-tasks d-flex'>
          <Button className='done-tasks btn-warning'>Delete done tasks</Button>

@@ -1,7 +1,7 @@
 import './ToDoListItems.scss';
 import { Form, Card } from 'react-bootstrap';
 
-function ToDoListItems({ tasks, inputCheck }) {
+function ToDoListItems({ tasks, inputCheck, removeTask }) {
   return (
     <div className='list-items mt-5'>
       <ul className='p-0'>
@@ -19,7 +19,7 @@ function ToDoListItems({ tasks, inputCheck }) {
                         <a href='#!' className='list-item-edit list-itm'>
                            <i className='fa fa-pencil text-secondary'></i>
                         </a>
-                        <a href='#!' className='list-item-remove list-itm'>
+                        <a href='#!' className='list-item-remove list-itm' onClick={() => removeTask(item.id)}>
                            <i className='fa fa-trash text-danger'></i>
                         </a>
                      </div>
