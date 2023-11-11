@@ -35,6 +35,20 @@ export const ToDoInputSlice = createSlice({
       clearInput: (state) => {
          state.inputTask = '';
       },
+      updateDoneTask: (state, action) => {
+         state.tasks.forEach((item) => {
+            if(action.payload === item.id) {
+               item.state = 'done';
+            }
+         });
+      },
+      updateToDoTask: (state, action) => {
+         state.tasks.forEach((item) => {
+            if(action.payload === item.id) {
+               item.state = 'todo';
+            }
+         });
+      }
    },
    extraReducers: {
       [getTasks.fulfilled]: (state, action) => {         
@@ -43,5 +57,5 @@ export const ToDoInputSlice = createSlice({
    }
 })
 
-export const { setInputValue, createTask, clearInput, updateTasks } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;

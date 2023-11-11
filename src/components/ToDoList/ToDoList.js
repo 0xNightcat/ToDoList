@@ -1,31 +1,36 @@
-import ToDoListItems from '../ToDoListItems/ToDoListItems';
+import ToDoListItems from './ToDoListItems/ToDoListItems';
 import './ToDoList.scss';
-import { Row, Col, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import ToDoListTabs from './ToDoListTabs/ToDoListTabs';
+import { updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
+import { updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
 
 // to do list component
 function ToDoList() {
+   const dispatch = useDispatch();
+
    const toDoInputReducer = useSelector((state) => state.toDoInput);
    const { tasks } = toDoInputReducer;
 
+   // input check handler
+   const checkInputHandler = (e, id) => { 
+      if(e.target.checked) {
+         dispatch(updateDoneTask(id));
+         dispatch(updateTasksDoneDB(id));
+      } else {
+         dispatch(updateToDoTask(id));
+         dispatch(updateTasksTodoDB(id));
+      }
+   }
 
   return (
     <div className='list w-75 m-auto mt-5 text-center'>
       <h2>ToDoList</h2>
 
-      <Row className='justify-content-center mt-5'>
-         <Col md={3}>
-            <Button className='btn-show-all w-100 active'>All</Button>
-         </Col>
-         <Col md={3}>
-            <Button className='btn-show-done w-100'>Done</Button>
-         </Col>
-         <Col md={3}>
-            <Button className='btn-show-todo w-100'>Todo</Button>
-         </Col>
-      </Row>
+      <ToDoListTabs />
 
-      <ToDoListItems tasks={tasks} />
+      <ToDoListItems inputCheck={checkInputHandler} tasks={tasks} />
 
       <div className='delete-tasks d-flex'>
          <Button className='done-tasks btn-warning'>Delete done tasks</Button>
