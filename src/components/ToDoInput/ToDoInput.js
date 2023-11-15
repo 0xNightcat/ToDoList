@@ -1,6 +1,6 @@
 import './ToDoInput.scss';
 import { Card, Button, Form } from 'react-bootstrap';
-import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask } from './ToDoInputSlice';
+import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask, cancelEditTask } from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { postTasks } from '../Api/PostSlice';
 
@@ -36,6 +36,11 @@ function ToDoInput() {
       dispatch(updateEditedTask());
       dispatch(updateEditTask(id));
    }
+
+   // cancel edit task
+   const cancelEditHandler = () => {
+      dispatch(cancelEditTask());
+   }
    
 
   return (
@@ -55,6 +60,9 @@ function ToDoInput() {
          <Button className='btn-danger btn-update w-25' disabled={
             edit === false ? 'disabled' : null
          } onClick={updateTaskHandler}>Update task</Button>
+         <Button className='btn-secondary btn-update w-25' disabled={
+            edit === false ? 'disabled' : null
+         } onClick={cancelEditHandler}>Cancel</Button>
       </div>
       </Card>
     </div>

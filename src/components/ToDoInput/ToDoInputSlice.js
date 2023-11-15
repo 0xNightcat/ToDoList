@@ -98,6 +98,10 @@ export const ToDoInputSlice = createSlice({
          })
 
          state.inputTask = '';
+      },
+      cancelEditTask: (state) => {
+         state.edit = false;
+         state.inputTask = '';
       }
    },
    extraReducers: {
@@ -107,5 +111,5 @@ export const ToDoInputSlice = createSlice({
    }
 })
 
-export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask, cancelEditTask } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;
