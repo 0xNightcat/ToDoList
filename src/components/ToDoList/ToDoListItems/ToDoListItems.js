@@ -1,7 +1,7 @@
 import './ToDoListItems.scss';
 import { Form, Card } from 'react-bootstrap';
 
-function ToDoListItems({ tasks, inputCheck, removeTask }) {
+function ToDoListItems({ tasks, inputCheck, removeTask, editTask }) {
   return (
     <div className='list-items mt-5'>
       <ul className='p-0'>
@@ -16,7 +16,7 @@ function ToDoListItems({ tasks, inputCheck, removeTask }) {
                         <Form.Check onChange={(e) => inputCheck(e, item.id)} className='list-item-check list-itm' checked={
                            item.state === 'done' ? 'checked' : ''
                         } />
-                        <a href='#!' className='list-item-edit list-itm'>
+                        <a href='#!' className='list-item-edit list-itm' onClick={() => editTask(item.id)}>
                            <i className='fa fa-pencil text-secondary'></i>
                         </a>
                         <a href='#!' className='list-item-remove list-itm' onClick={() => removeTask(item.id)}>

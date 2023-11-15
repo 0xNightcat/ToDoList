@@ -3,7 +3,7 @@ import './ToDoList.scss';
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import ToDoListTabs from './ToDoListTabs/ToDoListTabs';
-import { removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
+import { editTask, removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
 import { removeTaskDB, updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
 
 // to do list component
@@ -30,6 +30,12 @@ function ToDoList() {
       dispatch(removeTaskDB(id));
    }
 
+   // edit task handler
+   const editTaskHandler = (id) => {
+      dispatch(editTask(id));
+   }
+
+
   return (
     <div className='list w-75 m-auto mt-5 text-center'>
       <h2>ToDoList</h2>
@@ -37,7 +43,11 @@ function ToDoList() {
       <ToDoListTabs />
 
       {
-         tasks.length > 0 ? <ToDoListItems inputCheck={checkInputHandler} removeTask={removeTaskHandler} tasks={tasks} />
+         tasks.length > 0 ? <ToDoListItems 
+         inputCheck={checkInputHandler} 
+         removeTask={removeTaskHandler} 
+         editTask={editTaskHandler}
+         tasks={tasks} />
          :
          <h4 className='mt-5'>Task List is Empty</h4>
       }

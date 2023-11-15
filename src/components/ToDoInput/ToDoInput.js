@@ -1,6 +1,6 @@
 import './ToDoInput.scss';
 import { Card, Button, Form } from 'react-bootstrap';
-import { setInputValue, createTask, clearInput } from './ToDoInputSlice';
+import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask } from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { postTasks } from '../Api/PostSlice';
 
@@ -8,7 +8,7 @@ import { postTasks } from '../Api/PostSlice';
 function ToDoInput() {
    const dispatch = useDispatch();
    const toDoInputReducer = useSelector((state) => state.toDoInput);
-   const { inputTask } = toDoInputReducer;
+   const { inputTask, edit, editingTask } = toDoInputReducer;
 
    // input value handler
    const inputValueHandler = (event) => {
@@ -28,6 +28,14 @@ function ToDoInput() {
          dispatch(postTasks(data));
       }
    }
+
+   // update task handler
+   const updateTaskHandler = () => {
+      const id = editingTask.id;
+
+      dispatch(updateEditedTask());
+      dispatch(updateEditTask(id));
+   }
    
 
   return (
@@ -41,8 +49,12 @@ function ToDoInput() {
          </Form.Group>
       </Form>
       <div className='btns mt-3 d-flex'>
-         <Button className='btn-success btn-add w-25' onClick={addTaskHander}>Add new task</Button>
-         <Button className='btn-danger btn-update w-25'>Update task</Button>
+         <Button className='btn-success btn-add w-25'disabled={
+            edit === true ? 'disabled' : null
+         } onClick={addTaskHander}>Add new task</Button>
+         <Button className='btn-danger btn-update w-25' disabled={
+            edit === false ? 'disabled' : null
+         } onClick={updateTaskHandler}>Update task</Button>
       </div>
       </Card>
     </div>

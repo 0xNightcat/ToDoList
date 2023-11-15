@@ -38,7 +38,7 @@ export const removeTaskDB = createAsyncThunk('remove/tasks', async (id) => {
 
 // state
 const initialState = {
-
+   
 }
 
 // todo list action handler

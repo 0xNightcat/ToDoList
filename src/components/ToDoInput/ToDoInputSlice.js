@@ -9,9 +9,25 @@ export const getTasks = createAsyncThunk('get/tasks', async () => {
    return data;
 })
 
+// update task
+export const updateEditTask = createAsyncThunk('update/task', async (id, { getState }) => {
+   const store = getState();
+   const state = store.toDoInput;
+   const data = { title: state.editingTask.title };
+
+   await axios.patch(`http://localhost:8000/Tasks/${id}`, data)
+   .then((response) => {
+      console.log('task updated');
+   }).catch((error) => {
+      console.log(error);
+   })
+})
+
 // state
 const initialState = {
    inputTask: '',
+   edit: false,
+   editingTask: {},
    tasks: [],
 }
 
@@ -53,6 +69,35 @@ export const ToDoInputSlice = createSlice({
                item.state = 'todo';
             }
          });
+      },
+      editTask: (state, action) => {
+         state.tasks.forEach(item => {
+            if(item.id === action.payload) {
+               state.inputTask = item.title;
+               state.edit = true;
+               state.editingTask = item;
+            }
+         })
+      },
+      updateEditedTask: (state) => {
+         state.edit = false;
+         state.editingTask.title = state.inputTask;
+         
+         const newTasks = state.tasks.filter(item => item.id !== state.editingTask.id);
+         const currentTask = state.tasks.filter(item => item.id === state.editingTask.id);
+
+         const beforeTask = currentTask[0].title;
+         currentTask[0].title = state.editingTask.title;
+         const afterTask = currentTask[0].title;
+
+         newTasks.forEach((item) => {
+            if(item.title === afterTask) {
+               currentTask[0].title = beforeTask;
+               state.editingTask.title = beforeTask;
+            }
+         })
+
+         state.inputTask = '';
       }
    },
    extraReducers: {
@@ -62,5 +107,5 @@ export const ToDoInputSlice = createSlice({
    }
 })
 
-export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;
