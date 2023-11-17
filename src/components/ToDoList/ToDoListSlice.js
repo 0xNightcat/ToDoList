@@ -53,6 +53,23 @@ export const removeDoneTasksDB = createAsyncThunk('remove/done', async () => {
    })   
 })
 
+// clear all tasks
+export const clearAllTasks = createAsyncThunk('clear/tasks', async () => {
+   await axios.get('http://localhost:8000/Tasks/')
+   .then(async (response) => {
+      response.data.forEach(async (elem) => {
+         await axios.delete(`http://localhost:8000/Tasks/${elem.id}`)
+         .then((response) => {
+            console.log('task deleted');
+         }).catch((error) => {
+            console.log(error);
+         })
+      });
+   }).catch((error) => {
+      console.log(error);
+   }) 
+})
+
 
 // state
 const initialState = {

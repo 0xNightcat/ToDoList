@@ -106,6 +106,9 @@ export const ToDoInputSlice = createSlice({
       removeDoneTasks: (state) => {
          const todoTasks = state.tasks.filter(item => item.state !== 'done');
          state.tasks = todoTasks;
+      },
+      clearAll: (state) => {
+         state.tasks = [];
       }
    },
    extraReducers: {
@@ -115,5 +118,5 @@ export const ToDoInputSlice = createSlice({
    }
 })
 
-export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask, cancelEditTask, removeDoneTasks } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask, cancelEditTask, removeDoneTasks, clearAll } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;
