@@ -3,6 +3,10 @@
    .delete-tasks {
       justify-content: space-between;
       margin-top: 1.8rem;
+      position: fixed;
+      width: 58%;
+      right: 21%;
+      top: 90%;
       button {
          width: 44%;
          padding: 8px 0;

@@ -53,7 +53,7 @@ export const removeDoneTasksDB = createAsyncThunk('remove/done', async () => {
    })   
 })
 
-// clear all tasks
+// clear all tasks 
 export const clearAllTasks = createAsyncThunk('clear/tasks', async () => {
    await axios.get('http://localhost:8000/Tasks/')
    .then(async (response) => {
@@ -73,7 +73,7 @@ export const clearAllTasks = createAsyncThunk('clear/tasks', async () => {
 
 // state
 const initialState = {
-   
+   filterState: 'all'
 }
 
 // todo list action handler
@@ -81,6 +81,17 @@ export const ToDoListSlice = createSlice({
    name: 'ToDoList',
    initialState,
    reducers: {
-
+      showAllTasks: (state) => {
+         state.filterState = 'all';
+      },
+      showDoneTasks: (state) => {
+         state.filterState = 'done';
+      },
+      showToDoTasks: (state) => {
+         state.filterState = 'todo';
+      }
    }
 })
+
+export const { showAllTasks, showDoneTasks, showToDoTasks } = ToDoListSlice.actions;
+export default ToDoListSlice.reducer;

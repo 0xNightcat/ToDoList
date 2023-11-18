@@ -1,6 +1,6 @@
 import './ToDoInput.scss';
 import { Card, Button, Form } from 'react-bootstrap';
-import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask, cancelEditTask } from './ToDoInputSlice';
+import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask, cancelEditTask, createTasksInstance} from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { postTasks } from '../Api/PostSlice';
 
@@ -27,6 +27,9 @@ function ToDoInput() {
          dispatch(clearInput());
          dispatch(postTasks(data));
       }
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+       }, 50);
    }
 
    // update task handler
@@ -35,6 +38,10 @@ function ToDoInput() {
 
       dispatch(updateEditedTask());
       dispatch(updateEditTask(id));
+      
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+       }, 50);
    }
 
    // cancel edit task

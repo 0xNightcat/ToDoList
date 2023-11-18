@@ -3,8 +3,8 @@ import './ToDoList.scss';
 import { Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import ToDoListTabs from './ToDoListTabs/ToDoListTabs';
-import { clearAll, editTask, removeDoneTasks, removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
-import { clearAllTasks, removeDoneTasksDB, removeTaskDB, updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
+import { clearAll, createTasksInstance, editTask, filterTasks, removeDoneTasks, removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
+import { clearAllTasks, removeDoneTasksDB, removeTaskDB, showAllTasks, showDoneTasks, showToDoTasks, updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
 
 // to do list component
 function ToDoList() {
@@ -15,6 +15,9 @@ function ToDoList() {
 
    // input check handler
    const checkInputHandler = (e, id) => { 
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+       }, 50);
       if(e.target.checked) {
          dispatch(updateDoneTask(id));
          dispatch(updateTasksDoneDB(id));
@@ -28,6 +31,9 @@ function ToDoList() {
    const removeTaskHandler = (id) => {
       dispatch(removeTask(id));
       dispatch(removeTaskDB(id));
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+      }, 50);
    }
 
    // edit task handler
@@ -39,20 +45,47 @@ function ToDoList() {
    const removeDoneTasksHandler = () => {
       dispatch(removeDoneTasks());
       dispatch(removeDoneTasksDB());
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+      }, 50);
    }
 
    // clear tasks
    const clearTasks = () => {
       dispatch(clearAll());
       dispatch(clearAllTasks());
+      setTimeout(() => {
+         dispatch(createTasksInstance());
+      }, 50);
    }
 
+   // show all tasks handler
+   const showAllHandler = () => {
+      dispatch(showAllTasks());
+      dispatch(filterTasks('all'));
+   }
+
+   // show done tasks handler
+   const showDoneHandler = () => {
+      dispatch(showDoneTasks());
+      dispatch(filterTasks('done'));
+   }
+
+   // show todo tasks handler
+   const showToDoHandler = () => {
+      dispatch(showToDoTasks());
+      dispatch(filterTasks('todo'));
+   }
 
   return (
     <div className='list w-75 m-auto mt-5 text-center'>
       <h2>ToDoList</h2>
 
-      <ToDoListTabs />
+      <ToDoListTabs 
+      showAll={showAllHandler} 
+      showDone={showDoneHandler}
+      showTodo={showToDoHandler}
+      />
 
       {
          tasks.length > 0 ? <ToDoListItems 

@@ -29,6 +29,7 @@ const initialState = {
    edit: false,
    editingTask: {},
    tasks: [],
+   tasksInstance: []
 }
 
 // actions handler
@@ -109,14 +110,24 @@ export const ToDoInputSlice = createSlice({
       },
       clearAll: (state) => {
          state.tasks = [];
+      },
+      createTasksInstance: (state) => {
+         state.tasksInstance = state.tasks;
+      },
+      filterTasks: (state, action) => {
+         const foundTasks = state.tasksInstance.filter(item => item.state.toLowerCase().indexOf(action.payload.toLowerCase()) !== -1);     
+         state.tasks = foundTasks;
+         if(action.payload === 'all') {
+            state.tasks = state.tasksInstance;
+         }
       }
    },
    extraReducers: {
-      [getTasks.fulfilled]: (state, action) => {         
+      [getTasks.fulfilled]: (state, action) => {   
          state.tasks = state.tasks.concat(action.payload);
-      }
+      },
    }
 })
 
-export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask, cancelEditTask, removeDoneTasks, clearAll } = ToDoInputSlice.actions;
+export const { setInputValue, createTask, clearInput, updateDoneTask, updateToDoTask, removeTask, editTask, updateEditedTask, cancelEditTask, removeDoneTasks, clearAll, filterTasks, createTasksInstance } = ToDoInputSlice.actions;
 export default ToDoInputSlice.reducer;

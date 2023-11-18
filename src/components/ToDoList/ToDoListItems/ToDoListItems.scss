@@ -1,4 +1,8 @@
 .list-items {
+   height: 314px;
+   overflow-y: scroll;
+   margin-top: 1rem !important;
+   padding: 0 10px;
    ul {
       .list-item {
          .list-item-content {
