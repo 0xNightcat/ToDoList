@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ToDoListTabs from './ToDoListTabs/ToDoListTabs';
 import { clearAll, createTasksInstance, editTask, filterTasks, removeDoneTasks, removeTask, updateDoneTask, updateToDoTask } from '../ToDoInput/ToDoInputSlice';
 import { clearAllTasks, removeDoneTasksDB, removeTaskDB, showAllTasks, showDoneTasks, showToDoTasks, updateTasksDoneDB, updateTasksTodoDB } from './ToDoListSlice';
+import { clearListTasks, doneTasksDeleted, hideAlert, taskDeleted } from '../UI/UISlice';
 
 // to do list component
 function ToDoList() {
@@ -31,6 +32,10 @@ function ToDoList() {
    const removeTaskHandler = (id) => {
       dispatch(removeTask(id));
       dispatch(removeTaskDB(id));
+      dispatch(taskDeleted());
+      setTimeout(() => {
+         dispatch(hideAlert());
+      }, 1800);
       setTimeout(() => {
          dispatch(createTasksInstance());
       }, 50);
@@ -45,6 +50,10 @@ function ToDoList() {
    const removeDoneTasksHandler = () => {
       dispatch(removeDoneTasks());
       dispatch(removeDoneTasksDB());
+      dispatch(doneTasksDeleted());
+      setTimeout(() => {
+         dispatch(hideAlert());
+      }, 1800);
       setTimeout(() => {
          dispatch(createTasksInstance());
       }, 50);
@@ -54,6 +63,10 @@ function ToDoList() {
    const clearTasks = () => {
       dispatch(clearAll());
       dispatch(clearAllTasks());
+      dispatch(clearListTasks());
+      setTimeout(() => {
+         dispatch(hideAlert());
+      }, 1800);
       setTimeout(() => {
          dispatch(createTasksInstance());
       }, 50);

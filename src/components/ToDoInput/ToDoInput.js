@@ -3,6 +3,7 @@ import { Card, Button, Form } from 'react-bootstrap';
 import { setInputValue, createTask, clearInput, updateEditedTask, updateEditTask, cancelEditTask, createTasksInstance} from './ToDoInputSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { postTasks } from '../Api/PostSlice';
+import { emptyInput, hideAlert, taskAdded, taskUpdated } from '../UI/UISlice';
 
 // to do input component
 function ToDoInput() {
@@ -23,10 +24,20 @@ function ToDoInput() {
       const data = { id: id, title: inputTask, state: 'todo' };
 
       if(inputTask) {
-         dispatch(createTask(data))
+         dispatch(createTask(data));
          dispatch(clearInput());
          dispatch(postTasks(data));
+         dispatch(taskAdded());
+         setTimeout(() => {
+            dispatch(hideAlert());
+         }, 1800);
+      } else {
+         dispatch(emptyInput());
+         setTimeout(() => {
+            dispatch(hideAlert());
+         }, 1800);
       }
+
       setTimeout(() => {
          dispatch(createTasksInstance());
        }, 50);
@@ -38,6 +49,10 @@ function ToDoInput() {
 
       dispatch(updateEditedTask());
       dispatch(updateEditTask(id));
+      dispatch(taskUpdated());
+      setTimeout(() => {
+         dispatch(hideAlert());
+      }, 1800);
       
       setTimeout(() => {
          dispatch(createTasksInstance());

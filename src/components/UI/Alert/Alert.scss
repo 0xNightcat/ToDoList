@@ -1,0 +1,27 @@
+.alert {
+   position: absolute !important;
+   transform: translateX(30px);
+   border-radius: 4px;
+   width: 240px;
+   padding: 8px 10px !important;
+   text-align: center; 
+   transition: 0.1s;
+   &.active {
+      transform: translateX(30px);
+   }
+   &.inActive {
+      transform: translateX(-260px);
+   }
+   &.success {
+      background-color: green;
+   }
+   &.danger {
+      background-color: red;
+   }
+   &.info {
+      background-color: #00807a;
+   }
+   .alert-text {
+      color: #fff;
+   }
+}

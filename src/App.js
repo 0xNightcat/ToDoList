@@ -4,12 +4,17 @@ import ToDoList from './components/ToDoList/ToDoList';
 import ToDoInput from './components/ToDoInput/ToDoInput';
 import { createTasksInstance, getTasks } from './components/ToDoInput/ToDoInputSlice';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Alert from './components/UI/Alert/Alert';
 
 // App component
 function App() {
   const dispatch = useDispatch();
 
+  const UIReducer = useSelector((state) => state.UI);
+  const { color, text } = UIReducer;
+
+  
   useEffect(() => {
     dispatch(getTasks());
     setTimeout(() => {
@@ -21,6 +26,7 @@ function App() {
 
   return (
     <div className='app mt-5'>
+      <Alert color={color} text={text} />
       <Container className='text-center'>
         <ToDoInput />
         <ToDoList />
